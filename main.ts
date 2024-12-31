@@ -1,9 +1,6 @@
-input.onLogoEvent(TouchButtonEvent.LongPressed, function () {
-    control.reset()
-})
 input.onButtonPressed(Button.A, function () {
     start_time = input.runningTime() / 1000
-    servos.P0.run(speed_)
+    servos.P1.run(speed_)
 })
 input.onButtonPressed(Button.AB, function () {
     if (switch_for_reverse == 1) {
@@ -15,7 +12,7 @@ input.onButtonPressed(Button.AB, function () {
 input.onButtonPressed(Button.B, function () {
     stop_time = input.runningTime() / 1000
     running_time += stop_time - start_time
-    servos.P0.run(0)
+    servos.P1.run(0)
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     basic.showNumber(distance)
@@ -30,12 +27,13 @@ let speed_ = 0
 let start_time = 0
 let diameter = 1
 basic.forever(function () {
-    distance = Math.round(running_time * (2 * (3.1415926585 * (diameter / 2))) * (speed_ / 100))
+    distance = Math.round(0.875 * (running_time * (2 * (3.1415926585 * (diameter / 2))) * (speed_ / 100)))
 })
 basic.forever(function () {
+    speed_ = 100
     if (switch_for_reverse == 0) {
-        speed_ = 100
+        speed_ = speed_
     } else {
-        speed_ = -100
+        speed_ = -1 * speed_
     }
 })
